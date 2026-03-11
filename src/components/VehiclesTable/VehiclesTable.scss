@@ -1,0 +1,851 @@
+@import '../../theme/colors';
+@import '../../theme/spacing';
+
+$mobile-bp: $breakpoint-md; // 768px
+
+.vehicles-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  width: 100%;
+}
+
+// ─── Toolbar ────────────────────────────────────────────────────────────────
+
+.vehicles-table__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
+}
+
+.vehicles-table__toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.vehicles-table__toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.vehicles-table__selected-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px $spacing-3;
+  background: $color-white;
+  border: 1px solid var(--mc-borders-light, $figma-borders-light);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  cursor: pointer;
+
+  ion-icon { font-size: 20px; }
+}
+
+.vehicles-table__count {
+  font-size: 12px;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+}
+
+.vehicles-table__sort-by {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+}
+
+.vehicles-table__sort-label {
+  font-weight: 400;
+}
+
+.vehicles-table__sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  cursor: pointer;
+
+  ion-icon { font-size: 20px; }
+}
+
+.vehicles-table__view-switch {
+  display: flex;
+  border: 1px solid var(--mc-borders-light, $figma-borders-light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.vehicles-table__view-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: $color-white;
+  cursor: pointer;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+
+  ion-icon { font-size: 20px; }
+
+  &--active {
+    background: var(--mc-bg-tint, $figma-bg-tint);
+  }
+}
+
+// ─── Pagination ─────────────────────────────────────────────────────────────
+
+.vehicles-table__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
+  padding: $spacing-3 0;
+  flex-wrap: wrap;
+}
+
+.vehicles-table__pagination-info {
+  font-size: 12px;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+}
+
+.vehicles-table__pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.vehicles-table__pagination-page {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  min-width: 80px;
+  text-align: center;
+}
+
+.vehicles-table__pagination-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--mc-borders-light, $figma-borders-light);
+  border-radius: 6px;
+  background: $color-white;
+  cursor: pointer;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+
+  ion-icon { font-size: 20px; }
+
+  &:hover:not(:disabled) {
+    background: var(--mc-bg-tint, $figma-bg-tint);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ─── Table container ────────────────────────────────────────────────────────
+
+.vehicles-table {
+  border: 1px solid var(--mc-borders-light, $figma-borders-light);
+  border-radius: 6px;
+  overflow: hidden;
+  background: $color-white;
+  width: 100%;
+}
+
+// ─── Desktop wrapper — hide on mobile ───────────────────────────────────────
+
+.vehicles-table--desktop {
+  @media (max-width: $mobile-bp) {
+    display: none;
+  }
+}
+
+// ─── Mobile wrappers — hide on desktop ──────────────────────────────────────
+
+.vehicles-table--mobile-card,
+.vehicles-table--mobile-list {
+  display: none;
+
+  @media (max-width: $mobile-bp) {
+    display: block;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DESKTOP — LIST VIEW
+// ═══════════════════════════════════════════════════════════════════════════
+
+.vehicles-table--list {
+  overflow-x: auto;
+
+  .vehicles-table__header,
+  .vehicles-table__row {
+    display: grid;
+    grid-template-columns:
+      auto                 // pinned: checkbox + thumb + stock no
+      repeat(15, 1fr)      // remaining data columns
+      52px;                // actions (3-dot always visible)
+    gap: 8px;
+    align-items: center;
+    padding: 8px 8px 8px 0;
+    font-size: 12px;
+    min-width: 1280px;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DESKTOP — CARD VIEW
+// ═══════════════════════════════════════════════════════════════════════════
+
+.vehicles-table--card {
+  .vehicles-table__header,
+  .vehicles-table__row {
+    display: grid;
+    grid-template-columns:
+      100px              // checkbox + thumb
+      2fr                // vehicle (wider)
+      1fr                // price
+      1.5fr              // attributes
+      1fr                // status
+      0.6fr              // opps
+      52px;              // actions
+    gap: $spacing-4;
+    align-items: center;
+    padding: 8px $spacing-3;
+    font-size: 12px;
+  }
+
+  .vehicles-table__header {
+    height: 40px;
+  }
+
+  .vehicles-table__row--card {
+    height: 86px;
+    position: relative;
+  }
+
+  .vehicles-table__cell-spacer--card {
+    width: 70px;
+    height: 24px;
+  }
+
+  .vehicles-table__thumb--card {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    aspect-ratio: 1;
+  }
+}
+
+// ─── Shared cell styles ─────────────────────────────────────────────────────
+
+.vehicles-table__cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &--checkbox {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+  }
+
+  &--pinned {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    padding-left: $spacing-3;
+    padding-right: $spacing-3;
+    overflow: visible;
+    align-self: stretch;
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .vehicles-table--scrolled-left &::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      bottom: -8px;
+      right: -6px;
+      width: 6px;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
+      pointer-events: none;
+    }
+
+    @media (max-width: 1400px) {
+      &::after {
+        content: '';
+        position: absolute;
+        top: -8px;
+        bottom: -8px;
+        right: -6px;
+        width: 6px;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
+        pointer-events: none;
+      }
+    }
+  }
+
+  &--sortable {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    ion-icon {
+      font-size: 16px;
+      opacity: 0.7;
+    }
+  }
+
+  &--vehicle {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    white-space: normal;
+  }
+
+  &--price {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  &--attrs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    white-space: normal;
+  }
+
+  &--card-status {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    white-space: normal;
+  }
+
+  &--card-opps {
+    display: flex;
+    align-items: flex-start;
+  }
+}
+
+// ─── Vehicle info (card view) ──────────────────────────────────────────────
+
+.vehicles-table__vehicle-title {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vehicles-table__vehicle-sub {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vehicles-table__attrs-main {
+  font-size: 14px;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vehicles-table__attrs-sub {
+  font-size: 12px;
+  color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vehicles-table__status-sub {
+  font-size: 12px;
+  color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+}
+
+.vehicles-table__opps-badge {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+
+  ion-icon { font-size: 14px; }
+}
+
+// ─── Shared header / row chrome ─────────────────────────────────────────────
+
+.vehicles-table__header {
+  background: var(--mc-bg-tint, $figma-bg-tint);
+  border-bottom: 1px solid var(--mc-borders-light, $figma-borders-light);
+  font-weight: 400;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+
+  .vehicles-table__cell--pinned {
+    background: var(--mc-bg-tint, $figma-bg-tint);
+  }
+}
+
+.vehicles-table__row {
+  position: relative;
+  border-bottom: 1px solid var(--mc-borders-light, $figma-borders-light);
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+
+  .vehicles-table__cell--pinned {
+    background: $color-white;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// ─── Always-visible 3-dot button (last grid column) ─────────────────────────
+
+.vehicles-table__more-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  right: 0;
+  z-index: 3;
+  background: $color-white;
+  overflow: visible;
+  align-self: stretch;
+
+  .vehicles-table__header & {
+    background: var(--mc-bg-tint, $figma-bg-tint);
+  }
+
+  .vehicles-table--scrolled-right &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    bottom: -8px;
+    left: -6px;
+    width: 6px;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.06), transparent);
+    pointer-events: none;
+  }
+
+  @media (max-width: 1400px) {
+    &::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      bottom: -8px;
+      left: -6px;
+      width: 6px;
+      background: linear-gradient(to left, rgba(0, 0, 0, 0.06), transparent);
+      pointer-events: none;
+    }
+  }
+
+  .vehicles-table__row--hovered &::before {
+    content: none;
+  }
+}
+
+// ─── Hover action overlay (absolute, anchored to right of row) ─────────────
+
+.vehicles-table__hover-actions {
+  position: absolute;
+  right: 100%;
+  top: -8px;
+  bottom: -8px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+
+  .vehicles-table__row--hovered & {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.vehicles-table__hover-actions-buttons {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 12px;
+  height: 100%;
+  background: $color-white;
+}
+
+.vehicles-table__hover-actions-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -6px;
+  width: 6px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.06), transparent);
+  pointer-events: none;
+}
+
+.vehicles-table__action-btn {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  transition: background-color 0.15s ease;
+  flex-shrink: 0;
+
+  ion-icon { font-size: 20px; }
+
+  &:hover {
+    background: var(--mc-bg-tint, $figma-bg-tint);
+  }
+}
+
+// ─── Pinned column elements ─────────────────────────────────────────────────
+
+.vehicles-table__cell-spacer {
+  display: inline-block;
+  width: 41px;
+  height: 41px;
+  min-width: 41px;
+  flex-shrink: 0;
+}
+
+.vehicles-table__stock-no {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  white-space: nowrap;
+  width: 50px;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+
+.vehicles-table__pinned-label {
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+  width: 50px;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+
+// ─── Thumbnail ─────────────────────────────────────────────────────────────
+
+.vehicles-table__thumb {
+  width: 41px;
+  height: 41px;
+  min-width: 41px;
+  aspect-ratio: 1;
+  background: var(--mc-bg-tint, $figma-bg-tint);
+  border-radius: 3px;
+}
+
+// ─── Status dot ────────────────────────────────────────────────────────────
+
+.vehicles-table__status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vehicles-table__status-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: $border-radius-full;
+  background: var(--mc-blue-button, $figma-blue-button);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MOBILE — CARD VIEW
+// ═══════════════════════════════════════════════════════════════════════════
+
+.vehicles-table--mobile-card {
+  border: 1px solid var(--mc-borders-dark, $figma-borders-dark);
+  border-radius: 6px;
+  overflow: hidden;
+  background: $color-white;
+}
+
+.m-card {
+  border-bottom: 1px solid var(--mc-borders-dark, $figma-borders-dark);
+  padding: $spacing-4 $spacing-5;
+  background: $color-white;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.m-card__top {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-4;
+}
+
+.m-card__thumb {
+  width: 41px;
+  height: 41px;
+  min-width: 41px;
+  border-radius: 3px;
+  background: var(--mc-bg-tint, $figma-bg-tint);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--selected {
+    background: var(--mc-blue-button, $figma-blue-button);
+  }
+}
+
+.m-card__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-white;
+
+  ion-icon {
+    font-size: 22px;
+  }
+}
+
+.m-card__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+}
+
+.m-card__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.m-card__title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.m-card__sub {
+  font-size: 12px;
+  color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.m-card__price {
+  font-size: 12px;
+  color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+}
+
+.m-card__badges {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  margin-top: 4px;
+}
+
+.m-card__status-badge {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: 12px;
+  color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+}
+
+.m-card__status-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: $border-radius-full;
+  background: var(--mc-green, $figma-green);
+}
+
+.m-card__opps-badge {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--mc-bg-highlight, $figma-bg-highlight);
+  border-radius: $border-radius-full;
+  padding: 3px 5px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+
+  ion-icon { font-size: 14px; }
+}
+
+.m-card__icon-btn {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--mc-borders-dark, $figma-borders-dark);
+  border-radius: 6px;
+  background: $color-white;
+  cursor: pointer;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  flex-shrink: 0;
+
+  ion-icon { font-size: 20px; }
+}
+
+// ─── Expanded state ─────────────────────────────────────────────────────────
+
+.m-card__details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-5 $spacing-4;
+  margin-top: $spacing-4;
+}
+
+.m-card__detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.m-card__detail-label {
+  font-size: 12px;
+  color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+}
+
+.m-card__detail-value {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+}
+
+.m-card__actions {
+  display: flex;
+  gap: $spacing-4;
+  margin-top: $spacing-4;
+}
+
+.m-card__btn {
+  height: 36px;
+  padding: $spacing-2 $spacing-3;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+
+  &--primary {
+    background: var(--mc-blue-button, $figma-blue-button);
+    color: $color-white;
+  }
+
+  &--secondary {
+    background: $color-white;
+    color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+    border: 1px solid var(--mc-borders-light, $figma-borders-light);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MOBILE — LIST VIEW (horizontal scroll)
+// ═══════════════════════════════════════════════════════════════════════════
+
+.vehicles-table--mobile-list {
+  border: 1px solid var(--mc-borders-light, $figma-borders-light);
+  border-radius: 6px;
+  background: $color-white;
+}
+
+.vehicles-table--mobile-list__scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 6px;
+  -webkit-overflow-scrolling: touch;
+
+  .vehicles-table__header,
+  .vehicles-table__row {
+    display: grid;
+    grid-template-columns:
+      auto   // pinned: checkbox + thumb + stock no
+      50px   // year
+      130px  // make/model
+      50px   // style
+      70px   // colour
+      80px   // vin
+      70px   // reg no
+      70px   // engine
+      80px   // transmission
+      80px   // odometer
+      70px   // status
+      60px   // status days
+      70px   // dealership
+      90px   // price
+      50px   // sale
+      50px   // opps
+      52px;  // actions (3-dot sticky)
+    gap: 8px;
+    align-items: center;
+    padding: 8px 8px 8px 0;
+    font-size: 12px;
+    width: max-content;
+    min-width: 100%;
+  }
+}

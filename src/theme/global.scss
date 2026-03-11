@@ -1,7 +1,10 @@
 // Global styles
 // Imports all theme tokens and applies base styles to the app.
+// Design tokens (colors, typography, spacing) → map cleanly to Figma & Ionic.
 
-@import 'tokens';
+@import 'colors';
+@import 'typography';
+@import 'spacing';
 @import 'variables';
 
 // ─── Base Reset & Defaults ────────────────────────────────────────────────────

@@ -1,0 +1,40 @@
+@import '../../theme/colors';
+@import '../../theme/spacing';
+
+$mobile-bp: $breakpoint-md;
+
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4 $spacing-8;
+  background: $color-white;
+  border-bottom: 1px solid var(--mc-borders-light, $figma-borders-light);
+  flex-shrink: 0;
+
+  @media (max-width: $mobile-bp) {
+    display: none;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  &__logo-img {
+    display: block;
+    max-height: 60px;
+  }
+
+  &__ad {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  &__ad-img {
+    display: block;
+    max-height: 60px;
+  }
+}

@@ -1,0 +1,31 @@
+// Design tokens: Colors
+// Map Figma color tokens → Ionic --ion-color-* variables
+
+// Figma variables (Motorcentral Backend)
+$figma-bg-standard:      #010409;
+$figma-bg-tint:          #f6f8fa;
+$figma-bg-highlight:     #e1e5e9;
+$figma-borders:          #3d444d;
+$figma-borders-light:    #d1d9e0;
+$figma-borders-dark:     #b4bfc9;
+$figma-text-primary:     #eff3fa;
+$figma-text-primary-lt:  #152328;  // Light theme
+$figma-text-secondary:   #9198a1;
+$figma-text-secondary-lt: #59636e;
+$figma-blue:             #8bbcff;
+$figma-blue-button:      #377ede;
+$figma-red:              #c63737;
+$figma-green:            #21a564;
+$figma-motorcentral:     #2dab6d;  // Motorcentral green
+
+// Ionic / app palette
+$color-primary:    #3880ff;
+$color-secondary:  #3dc2ff;
+$color-tertiary:   #5260ff;
+$color-success:    #2dd36f;
+$color-warning:    #ffc409;
+$color-danger:     #eb445a;
+$color-dark:        #222428;
+$color-medium:      #92949c;
+$color-light:       #f4f5f8;
+$color-white:       #ffffff;

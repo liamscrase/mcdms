@@ -22,6 +22,9 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.scss';
 
+/* Layouts */
+import AppShell from './layouts/AppShell';
+
 /* Pages */
 import Home from './pages/Home';
 
@@ -31,9 +34,10 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
+        <Route path="/app" component={AppShell} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/app/dashboard" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

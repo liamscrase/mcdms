@@ -1,0 +1,169 @@
+@import '../../theme/colors';
+@import '../../theme/spacing';
+
+$mobile-bp: $breakpoint-md;
+
+.vehicles-search-bar {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  width: 100%;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+
+    @media (max-width: $mobile-bp) {
+      gap: 0;
+    }
+  }
+
+  &__input {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    min-height: 40px;
+    padding: 0 $spacing-3;
+    background: $color-white;
+    border: 1px solid var(--mc-borders-light, $figma-borders-light);
+    border-radius: 6px;
+
+    @media (max-width: $mobile-bp) {
+      min-height: 48px;
+      border-radius: $border-radius-lg 0 0 $border-radius-lg;
+      border-right: none;
+      padding: 0 14px;
+    }
+
+    .vehicles-search-bar__icon {
+      font-size: 20px;
+      color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+
+      @media (max-width: $mobile-bp) {
+        font-size: 24px;
+      }
+    }
+
+    .vehicles-search-bar__placeholder {
+      font-size: 14px;
+      color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+    }
+  }
+
+  &__filters {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 $spacing-3;
+    background: var(--mc-bg-tint, $figma-bg-tint);
+    border: 1px solid var(--mc-borders-light, $figma-borders-light);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+    cursor: pointer;
+    position: relative;
+
+    ion-icon {
+      font-size: 20px;
+
+      @media (max-width: $mobile-bp) {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: $mobile-bp) {
+      height: 48px;
+      padding: 0 $spacing-4;
+      border-radius: 0 $border-radius-lg $border-radius-lg 0;
+      background: $color-white;
+
+      span { display: none; }
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: -2px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--mc-red, $figma-red);
+    border-radius: $border-radius-full;
+
+    @media (max-width: $mobile-bp) {
+      display: none;
+    }
+  }
+
+  &__add {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 $spacing-3;
+    background: var(--mc-blue-button, $figma-blue-button);
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+
+    ion-icon {
+      font-size: 20px;
+    }
+
+    @media (max-width: $mobile-bp) {
+      display: none;
+    }
+  }
+
+  &__chips {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+
+    @media (max-width: $mobile-bp) {
+      flex-wrap: wrap;
+      gap: $spacing-3;
+    }
+  }
+
+  &__chip {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: 6px 9px 6px $spacing-3;
+    background: var(--mc-bg-highlight, $figma-bg-highlight);
+    border-radius: 32px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+
+    ion-icon {
+      font-size: 16px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+  }
+
+  &__clear {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 12px;
+    color: var(--mc-text-secondary-lt, $figma-text-secondary-lt);
+    cursor: pointer;
+
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+}

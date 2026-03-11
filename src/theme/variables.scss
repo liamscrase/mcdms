@@ -1,5 +1,14 @@
-/** Ionic CSS Variables **/
+/** Ionic CSS Variables + Figma design tokens **/
 :root {
+  /** Figma tokens (Motorcentral Backend) **/
+  --mc-bg-standard: #010409;
+  --mc-borders: #3d444d;
+  --mc-text-primary: #eff3fa;
+  --mc-text-secondary: #9198a1;
+  --mc-blue: #8bbcff;
+  --mc-red: #c63737;
+  --mc-green: #2dab6d;
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;

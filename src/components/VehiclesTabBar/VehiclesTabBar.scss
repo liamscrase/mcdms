@@ -1,0 +1,141 @@
+@import '../../theme/colors';
+@import '../../theme/spacing';
+
+$mobile-bp: $breakpoint-md;
+
+// ─── Desktop tab bar ────────────────────────────────────────────────────────
+
+.vehicles-tab-bar--desktop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $spacing-8;
+  min-height: 45px;
+  background: var(--mc-bg-tint, $figma-bg-tint);
+  border-bottom: 1px solid var(--mc-borders-light, $figma-borders-light);
+  flex-shrink: 0;
+
+  @media (max-width: $mobile-bp) {
+    display: none;
+  }
+}
+
+.vehicles-tab-bar__tabs {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.vehicles-tab-bar__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  margin-right: $spacing-2;
+}
+
+.vehicles-tab-bar__tab {
+  padding: 14px 6px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+
+  &:hover {
+    color: var(--mc-blue-button, $figma-blue-button);
+  }
+
+  &--active {
+    font-weight: 500;
+    border-bottom-color: var(--mc-blue-button, $figma-blue-button);
+  }
+}
+
+.vehicles-tab-bar__more {
+  padding: $spacing-2;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+
+  ion-icon {
+    font-size: 24px;
+  }
+}
+
+// ─── Mobile tab bar ─────────────────────────────────────────────────────────
+
+.vehicles-tab-bar--mobile {
+  display: none;
+
+  @media (max-width: $mobile-bp) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 55px;
+    padding: 0 $spacing-5;
+    background: var(--mc-bg-tint, $figma-bg-tint);
+    border-bottom: 1px solid var(--mc-borders-light, $figma-borders-light);
+    flex-shrink: 0;
+  }
+}
+
+.vehicles-tab-bar__mobile-left {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.vehicles-tab-bar__hamburger {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
+    font-size: 24px;
+  }
+}
+
+.vehicles-tab-bar__hamburger-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--mc-red, $figma-red);
+  border-radius: $border-radius-full;
+}
+
+.vehicles-tab-bar__mobile-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+}
+
+.vehicles-tab-bar__mobile-inbox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mc-text-primary-lt, $figma-text-primary-lt);
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 18px;
+  }
+}

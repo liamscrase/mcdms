@@ -1,0 +1,98 @@
+@import '../../theme/colors';
+@import '../../theme/spacing';
+
+$side-pad: 8px;
+
+.side-menu-small {
+  display: flex;
+  flex-direction: column;
+  width: calc(48px + #{$side-pad * 2});
+  min-height: 100%;
+  background: var(--mc-bg-standard, $figma-bg-standard);
+  border-right: 1px solid var(--mc-borders, $figma-borders);
+  flex-shrink: 0;
+  z-index: 10;
+  padding: 0 $side-pad;
+
+  &--expanded {
+    width: calc(247px + #{$side-pad * 2});
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: $spacing-3 $spacing-3 $spacing-2;
+    flex-shrink: 0;
+    gap: $spacing-3;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: var(--mc-green, $figma-motorcentral);
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  &__logo-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  &__brand {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mc-text-primary, $figma-text-primary);
+    white-space: nowrap;
+  }
+
+  &__divider {
+    height: 6px;
+    margin-left: -$side-pad;
+    margin-right: -$side-pad;
+    background: var(--mc-bg-standard, $figma-bg-standard);
+    border-bottom: 1px solid var(--mc-borders, $figma-borders);
+    flex-shrink: 0;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-top: $spacing-2;
+    min-height: 0;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    margin-left: -$side-pad;
+    margin-right: -$side-pad;
+    padding: $spacing-2 $side-pad 0;
+    border-top: 1px solid var(--mc-borders, $figma-borders);
+    flex-shrink: 0;
+  }
+
+  &__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+    background: var(--mc-blue, $figma-blue);
+    color: var(--mc-bg-standard, $figma-bg-standard);
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 50%;
+  }
+}

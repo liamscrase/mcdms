@@ -1,6 +1,6 @@
 # MCDMS — Ionic React Boilerplate
 
-A boilerplate Ionic React web application with TypeScript, SCSS, and routing.
+A boilerplate Ionic React web application with TypeScript, SCSS, and routing. Built with Vite for fast development and builds.
 
 ## Getting Started
 
@@ -20,7 +20,7 @@ npm install
 ```bash
 npm start
 # or
-ionic serve
+npm run dev
 ```
 
 Open [http://localhost:8100](http://localhost:8100) in your browser.

@@ -2,5 +2,7 @@
   "name": "mcdms",
   "type": "react",
   "integrations": {},
-  "cli": 2
+  "cli": {
+    "packageManager": "npm"
+  }
 }

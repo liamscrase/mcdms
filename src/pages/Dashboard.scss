@@ -1,0 +1,14 @@
+@import '../theme/colors';
+
+.dashboard-content {
+  --background: var(--mc-bg-standard, #010409);
+  --color: var(--mc-text-primary, #eff3fa);
+
+  h1 {
+    color: inherit;
+  }
+
+  p {
+    color: var(--mc-text-secondary, #9198a1);
+  }
+}

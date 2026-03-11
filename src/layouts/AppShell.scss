@@ -1,0 +1,80 @@
+@import '../theme/colors';
+@import '../theme/spacing';
+
+$mobile-bp: $breakpoint-md; // 768px
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--mc-bg-standard, $figma-bg-standard);
+}
+
+.app-shell__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+
+  ion-router-outlet {
+    flex: 1;
+    min-height: 0;
+  }
+
+  ion-toolbar {
+    --background: var(--mc-bg-standard, $figma-bg-standard);
+    --border-color: var(--mc-borders, $figma-borders);
+    --color: var(--mc-text-primary, $figma-text-primary);
+  }
+}
+
+// ─── Desktop sidebar ────────────────────────────────────────────────────────
+
+.app-shell__sidebar-desktop {
+  @media (max-width: $mobile-bp) {
+    display: none;
+  }
+}
+
+// ─── Mobile drawer ──────────────────────────────────────────────────────────
+
+.app-shell__drawer-backdrop {
+  display: none;
+
+  @media (max-width: $mobile-bp) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+
+    &--visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+.app-shell__drawer {
+  display: none;
+
+  @media (max-width: $mobile-bp) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+
+    &--open {
+      transform: translateX(0);
+    }
+  }
+}
